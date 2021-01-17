@@ -3,7 +3,13 @@ import { Container, Row, Col, Table, Form } from 'react-bootstrap'
 import cx from 'classnames'
 import './DataTable.css'
 
-const DataTable = ({ columns, data, totalRows, rowsPerPage = 25 }) => {
+const DataTable = ({
+  columns,
+  data,
+  totalRows,
+  rowsPerPage = 25,
+  containerHeight = '500px',
+}) => {
   const [numPages, setNumPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
   const [tableRowsPerPage, setTableRowsPerPage] = useState(rowsPerPage)
@@ -78,8 +84,11 @@ const DataTable = ({ columns, data, totalRows, rowsPerPage = 25 }) => {
   }
   return (
     <Container>
-      <Row className="p-0 m-0">
-        <div className="table-container">
+      <Row>
+        <div
+          className="table-container"
+          style={{ height: containerHeight, maxHeight: containerHeight }}
+        >
           <Table className="table sticky">
             <thead>
               <tr>
@@ -98,8 +107,8 @@ const DataTable = ({ columns, data, totalRows, rowsPerPage = 25 }) => {
                 .map((row, index) => (
                   <tr key={row.id}>
                     <td>{index}</td>
-                    {columns.map((column) => (
-                      <td>{row[column]}</td>
+                    {columns.map((column, index) => (
+                      <td key={`${row.id}_${index}`}>{row[column]}</td>
                     ))}
                   </tr>
                 ))}

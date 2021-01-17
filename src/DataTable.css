@@ -1,8 +1,7 @@
 .table-container {
-  width: 100%;
-  max-height: 500px;
   border: 1px solid black;
   overflow: auto;
+  text-align: left;
 }
 
 .table th {
@@ -12,6 +11,7 @@
 
 .table td {
   white-space: nowrap;
+  background-color: white;
 }
 
 .table.sticky th {
@@ -32,4 +32,14 @@ button.link {
 
 button.link.active {
   color: black;
+}
+
+.opaque {
+  opacity: 1;
+  transition: linear 0.25s opacity;
+}
+
+.transparent {
+  opacity: 0.2;
+  transition: linear 0.25s opacity;
 }

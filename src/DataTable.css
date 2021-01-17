@@ -1,0 +1,35 @@
+.table-container {
+  width: 100%;
+  max-height: 500px;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+.table th {
+  color: white;
+  background-color: #427cbc;
+}
+
+.table td {
+  white-space: nowrap;
+}
+
+.table.sticky th {
+  position: sticky;
+  top: 0;
+}
+
+button.link {
+  font-size: 0.9rem;
+  text-align: left;
+  color: #427cbc;
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+button.link.active {
+  color: black;
+}

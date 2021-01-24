@@ -1,42 +1,68 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import data from './data.json'
 import DataTable from './DataTable'
 import { Resizable } from 're-resizable'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function App() {
-  const [containerHeight, setContainerHeight] = useState(300)
-  const columns = ['id', 'userId', 'title', 'body']
+const ResizablePanel = ({
+  initialHeight = 300,
+  initialWidth = '100%',
+  children,
+}) => {
+  const [containerHeight, setContainerHeight] = useState(
+    parseInt(initialHeight)
+  )
 
   const handleResizeStop = (event, direction, refToElement, delta) => {
-    refToElement.className = 'opaque'
+    refToElement.className = 'data-table-opaque'
     setContainerHeight(
       (prevContainerHeight) => prevContainerHeight + delta.height
     )
   }
 
   const handleResizeStart = (event, direction, refToElement, delta) => {
-    refToElement.className = 'transparent'
+    refToElement.className = 'data-table-transparent'
   }
 
   useEffect(() => {
-    console.log('height', containerHeight)
-  }, [containerHeight])
+    console.log(
+      'initialHeight',
+      initialHeight,
+      'containerHeight',
+      containerHeight,
+      'initialWidth',
+      initialWidth
+    )
+  })
+
+  return (
+    <Resizable
+      onResizeStop={handleResizeStop}
+      onResizeStart={handleResizeStart}
+      defaultSize={{ height: containerHeight, width: initialWidth }}
+      className="data-table-opaque"
+    >
+      {React.Children.map(children, (child) =>
+        React.cloneElement(child, { containerHeight })
+      )}
+    </Resizable>
+  )
+}
+
+function App() {
+  const columns = ['id', 'userId', 'title', 'body']
+
   return (
     <div className="App">
-      <Resizable
-        onResizeStop={handleResizeStop}
-        onResizeStart={handleResizeStart}
-        className="opaque"
-      >
+      <ResizablePanel initialHeight="450">
         <DataTable
-          containerHeight={containerHeight}
+          dense={true}
           columns={columns}
           totalRows={data.length}
           data={data}
         />
-      </Resizable>
+      </ResizablePanel>
     </div>
   )
 }

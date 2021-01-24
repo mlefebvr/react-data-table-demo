@@ -1,25 +1,25 @@
-.table-container {
+.data-table-container {
   border: 1px solid black;
   overflow: auto;
   text-align: left;
 }
 
-.table th {
+.data-table-table th {
   color: white;
   background-color: #427cbc;
 }
 
-.table td {
+.data-table-table td {
   white-space: nowrap;
   background-color: white;
 }
 
-.table.sticky th {
+.data-table-table.sticky th {
   position: sticky;
   top: 0;
 }
 
-button.link {
+.data-table-button-link {
   font-size: 0.9rem;
   text-align: left;
   color: #427cbc;
@@ -30,16 +30,21 @@ button.link {
   cursor: pointer;
 }
 
-button.link.active {
+.data-table-button-link.active {
   color: black;
 }
 
-.opaque {
+.data-table-opaque {
   opacity: 1;
   transition: linear 0.25s opacity;
 }
 
-.transparent {
+.data-table-transparent {
   opacity: 0.2;
   transition: linear 0.25s opacity;
+}
+
+table.data-table-dense th,
+table.data-table-dense td {
+  padding: 0.25rem;
 }

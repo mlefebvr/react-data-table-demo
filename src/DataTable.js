@@ -10,6 +10,8 @@ const DataTable = ({
   rowsPerPage = 25,
   containerHeight,
   dense,
+  fluid,
+  perPageOptions = [5, 10, 15, 20, 25, 50],
 }) => {
   const [numPages, setNumPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
@@ -84,7 +86,7 @@ const DataTable = ({
     setCurrentPage(parseInt(page))
   }
   return (
-    <Container>
+    <Container fluid={fluid}>
       <Row>
         <div
           className="data-table-container"
@@ -111,7 +113,7 @@ const DataTable = ({
                   startIndex,
                   parseInt(startIndex) + parseInt(tableRowsPerPage)
                 )
-                .map((row, index) => (
+                .map((row) => (
                   <tr key={row.id}>
                     {columns.map((column, index) => (
                       <td key={`${row.id}_${index}`}>{row[column]}</td>
@@ -122,8 +124,8 @@ const DataTable = ({
           </Table>
         </div>
       </Row>
-      <Row className="justify-content-around align-items-center">
-        <Col xs={3}>
+      <Row>
+        <Col xs={6} className="d-flex justify-content-start">
           Rows per page
           <Form.Control
             as="select"
@@ -132,15 +134,12 @@ const DataTable = ({
             size="sm"
             className="d-inline w-auto"
           >
-            <option>5</option>
-            <option>10</option>
-            <option>15</option>
-            <option>20</option>
-            <option>25</option>
-            <option>30</option>
+            {perPageOptions.map((option) => (
+              <option>{option}</option>
+            ))}
           </Form.Control>
         </Col>
-        <Col xs={3} className="d-flex justify-content-end">
+        <Col xs={6} className="d-flex justify-content-end">
           <button
             className="data-table-button-link mr-1"
             onClick={() => handleSetPage('-1')}

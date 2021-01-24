@@ -57,10 +57,12 @@ function App() {
     <div className="App">
       <ResizablePanel initialHeight="450">
         <DataTable
-          dense={true}
+          dense={false}
+          fluid
           columns={columns}
           totalRows={data.length}
           data={data}
+          perPageOptions={[5, 10, 15, 20, 25, 99]}
         />
       </ResizablePanel>
     </div>

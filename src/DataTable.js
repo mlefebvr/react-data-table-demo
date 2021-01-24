@@ -8,7 +8,8 @@ const DataTable = ({
   data,
   totalRows,
   rowsPerPage = 25,
-  containerHeight = '500px',
+  containerHeight,
+  dense,
 }) => {
   const [numPages, setNumPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
@@ -86,13 +87,19 @@ const DataTable = ({
     <Container>
       <Row>
         <div
-          className="table-container"
-          style={{ height: containerHeight, maxHeight: containerHeight }}
+          className="data-table-container"
+          style={{
+            height: containerHeight,
+            maxHeight: containerHeight,
+          }}
         >
-          <Table className="table sticky">
+          <Table
+            className={`data-table-table sticky ${
+              dense ? 'data-table-dense' : ''
+            }`}
+          >
             <thead>
               <tr>
-                <th>#</th>
                 {columns.map((column, index) => (
                   <th key={index}>{column}</th>
                 ))}
@@ -106,7 +113,6 @@ const DataTable = ({
                 )
                 .map((row, index) => (
                   <tr key={row.id}>
-                    <td>{index}</td>
                     {columns.map((column, index) => (
                       <td key={`${row.id}_${index}`}>{row[column]}</td>
                     ))}
@@ -116,9 +122,9 @@ const DataTable = ({
           </Table>
         </div>
       </Row>
-      <Row className="justify-content-between align-items-center">
+      <Row className="justify-content-around align-items-center">
         <Col xs={3}>
-          Rows
+          Rows per page
           <Form.Control
             as="select"
             onChange={handleSelectPerPage}
@@ -135,13 +141,16 @@ const DataTable = ({
           </Form.Control>
         </Col>
         <Col xs={3} className="d-flex justify-content-end">
-          <button className="link mr-1" onClick={() => handleSetPage('-1')}>
+          <button
+            className="data-table-button-link mr-1"
+            onClick={() => handleSetPage('-1')}
+          >
             &lt;
           </button>
           {pages.slice(paginationWindow[0], paginationWindow[1]).map((page) => (
             <button
               className={cx(
-                'link',
+                'data-table-button-link',
                 'mr-1',
                 page === currentPage ? 'active' : ''
               )}
@@ -151,7 +160,10 @@ const DataTable = ({
               {page}
             </button>
           ))}
-          <button className="link mr-1" onClick={() => handleSetPage('+1')}>
+          <button
+            className="data-table-button-link mr-1"
+            onClick={() => handleSetPage('+1')}
+          >
             &gt;
           </button>
         </Col>
